@@ -7,10 +7,9 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -49,6 +48,18 @@ public class BackendController {
 		mav.addObject("feedContent", items);
 		return mav;	
 	}	
+	
+	@RequestMapping(value="json/data", method = RequestMethod.GET)
+	public @ResponseBody List<FeedItem> getFeedItemsInJSON() {
+ 
+		List<FeedItem> items = feedItemRepository.findAll(); 
+		return items; 
+	}
+	
+	@RequestMapping(value="/json/page", method = RequestMethod.GET)
+	public String getFeedAsJsonPage() {
+		return "frontend/rssJsonPageViewer";
+	}
 	
 	@PostConstruct	
 	protected void initialize() {
