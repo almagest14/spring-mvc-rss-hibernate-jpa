@@ -1,5 +1,6 @@
 package kauppalehtiHarjoitus.rssHarjoitus.backend;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -17,6 +18,11 @@ public class BackendController {
 
 	@Autowired
 	private FeedItemRepository feedItemRepository;
+	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String index(Principal principal) {
+		return "frontend/index";
+	}
 	
 	@RequestMapping(value="/rssfeed", method = RequestMethod.GET)
 	public ModelAndView getFeedInRss() {
